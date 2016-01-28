@@ -1,0 +1,118 @@
+﻿@section scripts {
+    @Scripts.Render("~/bundles/app")
+}
+<div class="page-header">
+    <h1>Student Details</h1>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Students</h2>
+                <button type="button" class="btn btn-default btn-addNewStudent" data-bind="click: addNewStudentButton">Add New Student</button>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled" data-bind="foreach: students">
+                    <li>
+                        <strong>
+                            <span data-bind="text: DepartmentName"></span>
+                        </strong> :
+                        <span data-bind="text: FirstName"></span>
+                        <small><a href="#" data-bind="click: $parent.getStudentDetail">Details</a></small>
+                        <small><a href="#" data-bind="click: $parent.updateStudentDetails">Edit</a></small>
+                        <small><a href="#" data-bind="click: $parent.deleteStudent">Delete</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="panel panel-default" data-bind="visible: viewStudent">
+            <div class="panel-heading">
+                <h2 class="panel-title">Student Detail</h2>
+            </div>
+            <table class="table">
+                <tr><td>Department : </td><td data-bind="text: detail().DepartmentName"></td></tr>
+                <tr><td>First Name : </td><td data-bind="text: detail().FirstName"></td></tr>
+                <tr><td>Last Name : </td><td data-bind="text: detail().LastName"></td></tr>
+                <tr><td>Year Enrolled : </td><td data-bind="text: detail().YearEnrolled"></td></tr>
+                <tr><td>Date Of Birth : </td><td data-bind="text: moment(detail().DateOfBirth).format('YYYY-MM-DD')"></td></tr>
+                <tr><td>Email : </td><td data-bind="text: detail().Email"></td></tr>
+            </table>
+        </div>
+
+        <div class="panel panel-default" data-bind="visible: addNewStudentForm">
+            <div class="panel-heading">
+                <h2 class="panel-title">Add Student</h2>
+            </div>
+
+            <table class="table">
+                <tr>
+                    <td>Department</td>
+                    <td><select data-bind="options:departments, optionsText: 'Name', value: newStudent.Department"></select></td>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" class="form-control" data-bind="value:newStudent.FirstName" /></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" class="form-control" data-bind="value:newStudent.LastName" /></td>
+                </tr>
+                <tr>
+                    <td>Date Of Birth</td>
+                    <td><input type="date" class="form-control" data-bind="value:newStudent.DateOfBirth" /></td>
+                </tr>
+                <tr>
+                    <td>Year</td>
+                    <td><input type="number" step="any" class="form-control" data-bind="value:newStudent.YearEnrolled" /></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" step="any" class="form-control" data-bind="value:newStudent.Email" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="button" class="btn btn-default" data-bind="click: addStudent">Save</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="panel panel-default" data-bind="visible: editStudentForm">
+            <div class="panel-heading">
+                <h2 class="panel-title">Edit Student Details</h2>
+            </div>
+
+            <table class="table">
+                <tr>
+                    <td>Department</td>
+                    <td><select data-bind="options:departments, optionsText: 'Name', optionsValue: 'Id', value: detail().DepartmentId"></select></td>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" class="form-control" id="inputFirstName" data-bind="value: detail().FirstName" /></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" class="form-control" id="inputLastName" data-bind="value: detail().LastName" /></td>
+                </tr>
+                <tr>
+                    <td>Date Of Birth</td>
+                    <td><input type="date" class="form-control" id="inputDateOfBirth" data-bind="value: formattedDate" /></td>
+                </tr>
+                <tr>
+                    <td>Year</td>
+                    <td><input type="number" class="form-control" id="inputYear" data-bind="value: detail().YearEnrolled" /></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" class="form-control" id="inputEmail" data-bind="value: detail().Email" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="button" class="btn btn-default" data-bind="click: updateStudent">Update</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
